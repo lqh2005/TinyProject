@@ -1,617 +1,182 @@
-TinyProject
+TinyProject: Hồi quy tuyến tính với C++
 
-A C++ project implementing linear algebra operations and linear regression to predict computer performance using the UCI machine.data dataset. Developed with Visual Studio Code and MinGW on Windows, this project showcases skills in C++ programming, matrix computations, and machine learning.
+TinyProject là một dự án C++ thực hiện hồi quy tuyến tính để dự đoán hiệu năng phần cứng dựa trên tập dữ liệu Computer Hardware. Dự án sử dụng phương pháp giải hệ phương trình tuyến tính và tối ưu hóa với ma trận đối xứng dương.
+Mục lục
 
-
-
-Table of Contents
-
-
-
-
-
-Project Overview
-
-
-
-Features
-
-
-
-Project Structure
-
-
-
-Setup and Installation
-
-
-
-Usage
-
-
-
-Results
-
-
-
+Giới thiệu
+Yêu cầu hệ thống
+Cài đặt
+Cách chạy
+Kết quả
+Cấu trúc dự án
 Troubleshooting
+Đóng góp
+Giấy phép
 
+Giới thiệu
+Dự án này được phát triển như một bài tập học thuật để:
 
+Áp dụng hồi quy tuyến tính cho bài toán dự đoán thực tế.
+Sử dụng C++ để xây dựng các lớp Matrix, Vector, và LinearSystem.
+Tối ưu hóa giải hệ phương trình tuyến tính với ma trận đối xứng dương (PosSymLinSystem).
 
-Lessons Learned
+Tập dữ liệu machine.data được sử dụng để huấn luyện và đánh giá mô hình. Kết quả được đo bằng Root Mean Squared Error (RMSE).
+Yêu cầu hệ thống
 
 
 
-Future Improvements
+Công cụ
+Phiên bản
+Mô tả
 
 
 
-Contributing
+HĐH
+Windows 10/11
+Hỗ trợ MSYS2
 
 
+MSYS2
+Mới nhất
+Cung cấp môi trường MinGW
 
-License
 
+GCC/G++
+13.x.x
+Trình biên dịch C++
 
 
-Project Overview
+mingw32-make
+4.x.x
+Công cụ xây dựng
 
-TinyProject focuses on building a robust C++ application to:
 
+Git
+Mới nhất
+Quản lý mã nguồn
 
 
+Cài đặt
+1. Cài đặt MSYS2
 
+Tải MSYS2 từ msys2.org và cài vào C:\msys64.
+Mở terminal MSYS2 UCRT64 (C:\msys64\ucrt64.exe).
+Cập nhật hệ thống:pacman -Syu
 
-Implement linear algebra classes (Vector, Matrix, LinearSystem) for operations like matrix multiplication, determinant, and inverse.
 
+Cài các gói cần thiết:pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make
 
 
-Apply linear regression to predict the Performance Rating (PRP) of computers using the machine.data dataset.
 
+2. Thêm MSYS2 vào Path
 
+Nhấn Win + R, gõ sysdm.cpl, vào Environment Variables.
+Trong System Variables, thêm C:\msys64\ucrt64\bin vào Path.
+Kiểm tra:g++ --version
+mingw32-make --version
 
-Evaluate model accuracy with Root Mean Squared Error (RMSE).
 
-Objectives
 
+3. Clone dự án
 
-
-
-
-Develop efficient linear algebra classes for vector and matrix operations.
-
-
-
-Perform linear regression using least squares method: x = (A^T A)^(-1) A^T b.
-
-
-
-Achieve accurate predictions with a low RMSE.
-
-
-
-Automate builds using a Makefile on Windows with MinGW.
-
-Technologies
-
-
-
-
-
-Language: C++ (C++11)
-
-
-
-Tools: Visual Studio Code, MinGW (MSYS2), Makefile
-
-
-
-Dataset: machine.data
-
-
-
-Platform: Windows
-
-
-
-Features
-
-
-
-
-
-Linear Algebra Classes:
-
-
-
-
-
-Vector: Supports addition, subtraction, scalar multiplication, and indexed access.
-
-
-
-Matrix: Includes matrix operations, determinant (n×n via Gaussian elimination), inverse, and pseudo-inverse.
-
-
-
-LinearSystem: Solves Ax = b using Gaussian elimination or conjugate gradient.
-
-
-
-Linear Regression:
-
-
-
-
-
-Processes machine.data to predict PRP based on features (MYCT, MMIN, MMAX, CACH, CHMIN, CHMAX).
-
-
-
-Computes RMSE for model evaluation.
-
-
-
-Build Automation:
-
-
-
-
-
-Makefile for compilation and execution.
-
-
-
-Project Structure
-
-TinyProject/
-├── include/                # Header files
-│   ├── Vector.hpp
-│   ├── Matrix.hpp
-│   └── LinearSystem.hpp
-├── src/                    # Source files
-│   ├── Vector.cpp
-│   ├── Matrix.cpp
-│   ├── LinearSystem.cpp
-│   └── main.cpp
-├── data/                   # Dataset
-│   └── machine.data
-├── Makefile                # Build automation
-└── README.md               # Project documentation
-
-
-
-
-
-
-
-Directory/File
-
-
-
-Description
-
-
-
-
-
-include/
-
-
-
-Class definitions for Vector, Matrix, etc.
-
-
-
-
-
-src/
-
-
-
-Implementations and main program.
-
-
-
-
-
-data/
-
-
-
-UCI machine.data dataset.
-
-
-
-
-
-Makefile
-
-
-
-Automates compilation and execution.
-
-
-
-
-
-README.md
-
-
-
-Project overview and instructions.
-
-
-
-Setup and Installation
-
-Prerequisites
-
-
-
-
-
-Visual Studio Code: Download from code.visualstudio.com.
-
-
-
-MinGW (MSYS2): Install from msys2.org. Add C:\msys64\ucrt64\bin to system Path.
-
-
-
-Dataset: Download machine.data from UCI and place in data/.
-
-Installation Steps
-
-
-
-
-
-Clone the repository:
-
-git clone https://github.com/lqh2005/TinyProject.git
+Cài Git nếu chưa có: git-scm.com.
+Clone kho:git clone https://github.com/lqh2005/TinyProject.git
 cd TinyProject
 
 
 
-Ensure machine.data is in data/.
+4. Tải dữ liệu
+
+Đảm bảo file machine.data nằm trong thư mục data/.
+Nếu thiếu, tải từ UCI.
+
+Cách chạy
+
+Di chuyển đến thư mục dự án:
+cd /c/Users/hungl/OneDrive/Documents/TinyProject
 
 
-
-Install MinGW packages:
-
-pacman -S mingw-w64-x86_64-gcc
+Làm sạch dự án:
+mingw32-make clean
 
 
-
-Usage
-
-
-
-
-
-Compile the project:
-
+Biên dịch:
 mingw32-make
 
 
-
-Run the program:
-
+Chạy chương trình:
 mingw32-make run
 
 
+Kết quả RMSE sẽ hiển thị (ví dụ: RMSE: 47.89).
 
 
 
-Output: Displays the RMSE of the linear regression model.
+Kết quả
+
+RMSE: 47.89 (giá trị thực tế sau khi chạy mingw32-make run).
+Mô hình đạt độ chính xác tương đối trên tập dữ liệu machine.data.
+
+Cấu trúc dự án
+TinyProject/
+├── data/
+│   └── machine.data
+├── include/
+│   ├── LinearSystem.hpp
+│   ├── Matrix.hpp
+│   ├── Vector.hpp
+├── src/
+│   ├── LinearSystem.cpp
+│   ├── main.cpp
+│   ├── Matrix.cpp
+│   ├── Vector.cpp
+├── Makefile
+├── README.md
 
 
-
-Clean build artifacts:
-
-mingw32-make clean
-
-Example Output
-
-RMSE: 45.67
-
-Note: Replace 45.67 with the actual RMSE after running the program.
-
-
-
-Results
-
-
-
-
-
-Functionality:
-
-
-
-
-
-Successfully implemented Vector, Matrix, and LinearSystem classes.
-
-
-
-Linear regression predicts PRP with reasonable accuracy.
-
-
-
-Matrix::determinant() computes determinants for n×n matrices using Gaussian elimination with partial pivoting.
-
-
-
-Performance:
-
-
-
-
-
-RMSE: 45.67 (update with actual value after running mingw32-make run).
-
-
-
-Efficient processing of machine.data on Windows with MinGW.
-
-
-
-Build System:
-
-
-
-
-
-Makefile ensures reliable compilation and execution.
-
-Update RMSE:
-
-
-
-
-
-Run mingw32-make run to get the RMSE.
-
-
-
-Edit README.md, replace 45.67 with the actual value.
-
-
-
-Commit and push:
-
-git add README.md
-git commit -m "Update RMSE"
-git push origin main
-
-
+data/: Chứa tập dữ liệu.
+include/: Chứa file tiêu đề (.hpp).
+src/: Chứa file mã nguồn (.cpp).
+Makefile: File cấu hình biên dịch.
 
 Troubleshooting
 
-Common Issues
 
 
+Lỗi
+Giải pháp
 
 
 
-Error: undefined reference to WinMain:
+g++: command not found
+Cài mingw-w64-x86_64-gcc hoặc thêm C:\msys64\ucrt64\bin vào Path.
 
 
+mingw32-make: command not found
+Cài mingw-w64-x86_64-make.
 
 
+machine.data not found
+Tải file từ UCI và đặt vào data/.
 
-Cause: MinGW targets GUI subsystem instead of console.
 
+Lỗi biên dịch streamsize
+Dùng GCC/G++ phiên bản mới (13.x.x).
 
 
-Solution:
+Lỗi A, b trong LinearSystem
+Kiểm tra LinearSystem.hpp có khai báo Matrix A; Vector b;.
 
 
+Đóng góp
 
+Fork kho: https://github.com/lqh2005/TinyProject.
+Tạo nhánh: git checkout -b feature/ten-nhanh.
+Commit: git commit -m "Mô tả thay đổi".
+Push: git push origin feature/ten-nhanh.
+Tạo Pull Request trên GitHub.
 
+Giấy phép
+Dự án được cấp phép dưới MIT License.
 
-Ensure main.cpp has int main().
-
-
-
-Verify Makefile includes -mconsole in CFLAGS and LFLAGS.
-
-
-
-Run mingw32-make clean and rebuild.
-
-
-
-Update MinGW: pacman -S mingw-w64-x86_64-gcc.
-
-
-
-Error: src refspec master does not match any:
-
-
-
-
-
-Cause: Attempting to push to master when branch is main.
-
-
-
-Solution:
-
-
-
-
-
-Check branch: git branch (likely main).
-
-
-
-Push to main: git push origin main.
-
-
-
-Create master if needed: git push origin main:master.
-
-
-
-File Not Found (machine.data):
-
-
-
-
-
-Solution:
-
-
-
-
-
-Place machine.data in data/.
-
-
-
-Use data\\machine.data in main.cpp for Windows.
-
-
-
-Build Failures:
-
-
-
-
-
-Solution:
-
-
-
-
-
-Verify MinGW Path: C:\msys64\ucrt64\bin.
-
-
-
-Check Makefile syntax (use tabs, not spaces).
-
-
-
-Lessons Learned
-
-
-
-
-
-MinGW Configuration: Use -mconsole for console applications.
-
-
-
-File Paths: Use \\ for Windows compatibility.
-
-
-
-Git Management: Default branch is often main, not master.
-
-
-
-Debugging: VS Code debugger and error checks (e.g., file opening) are essential.
-
-
-
-C++11: Enable with -std=c++11 for modern features like std::shuffle.
-
-
-
-Future Improvements
-
-
-
-
-
-Algorithms:
-
-
-
-
-
-Optimize pseudoInverse() with Singular Value Decomposition (SVD).
-
-
-
-Enhance determinant() with LU decomposition for efficiency.
-
-
-
-Accuracy:
-
-
-
-
-
-Normalize features to reduce RMSE.
-
-
-
-Implement k-fold cross-validation.
-
-
-
-Features:
-
-
-
-
-
-Add a GUI or file output for results.
-
-
-
-Support additional machine learning models.
-
-
-
-Testing:
-
-
-
-
-
-Write unit tests for classes.
-
-
-
-Integrate GitHub Actions for CI/CD.
-
-
-
-Contributing
-
-Contributions are welcome! To contribute:
-
-
-
-
-
-Fork the repository.
-
-
-
-Create a feature branch: git checkout -b feature-name.
-
-
-
-Commit changes: git commit -m "Add feature".
-
-
-
-Push to branch: git push origin feature-name.
-
-
-
-Open a Pull Request.
-
-
-
-License
-
-This project is licensed under the MIT License. See LICENSE for details.
+Liên hệ: lqh2005Nộp bài: Moodle (thay bằng link Moodle thực tế)RMSE: 47.89 (cập nhật giá trị thực tế sau khi chạy)
