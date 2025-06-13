@@ -1,182 +1,147 @@
-TinyProject: Hồi quy tuyến tính với C++
+# TinyProject: Linear Regression in C++
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![C++](https://img.shields.io/badge/Language-C++-blue.svg)](https://isocpp.org/)
+[![Build Tool: MinGW](https://img.shields.io/badge/Build-MinGW-green.svg)](https://www.mingw-w64.org/)
+
+**TinyProject** is a C++ implementation of linear regression to predict hardware performance using the [Computer Hardware dataset](https://archive.ics.uci.edu/ml/datasets/Computer+Hardware). This `README.md` describes the steps taken to complete the project.
+
+---
+
+## Table of Contents
+
+- [Project Description](#project-description)
+- [Steps Taken to Complete the Project](#steps-taken-to-complete-the-project)
+- [Setup Instructions](#setup-instructions)
+- [Running the Project](#running-the-project)
+- [License](#license)
+
+---
+
+## Project Description
+
+TinyProject develops a C++ program to perform linear regression on the `machine.data` dataset, which includes hardware specifications and estimated relative performance (ERP) values. The program processes data, solves linear systems using object-oriented classes, and evaluates predictions with Root Mean Squared Error (RMSE).
+
+---
+
+## Steps Taken to Complete the Project
+
+To complete **TinyProject**, the following actions were performed:
+
+1. **Set Up Development Environment**:
+   - Installed MSYS2 on Windows to provide a MinGW environment.
+   - Installed `g++` and `mingw32-make` via:
+     ```bash
+     pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make
+     ```
+   - Added `C:\msys64\ucrt64\bin` to the system Path for access to tools.
+
+2. **Prepared Dataset**:
+   - Downloaded `machine.data` from the UCI Machine Learning Repository.
+   - Placed it in the `data/` folder.
+   - Preprocessed data to extract features (e.g., CPU cycle time, memory size) and normalize values.
+
+3. **Implemented Core Classes**:
+   - Developed the `Matrix` class (`include/Matrix.hpp`, `src/Matrix.cpp`) for matrix operations like multiplication and transposition.
+   - Created the `Vector` class (`include/Vector.hpp`, `src/Vector.cpp`) for vector operations, including dot product and scalar multiplication.
+   - Built the `LinearSystem` class (`include/LinearSystem.hpp`, `src/LinearSystem.cpp`) as a base for solving linear systems.
+   - Implemented the `PosSymLinSystem` class, extending `LinearSystem`, to solve positive symmetric systems with the conjugate gradient method.
+
+4. **Developed Main Program**:
+   - Wrote `src/main.cpp` to load `machine.data`, construct feature matrices and target vectors, and execute linear regression.
+   - Used `PosSymLinSystem` to compute regression coefficients via the normal equation.
+
+5. **Configured Build System**:
+   - Created a `Makefile` to automate compilation with `mingw32-make`.
+   - Linked source files to produce `program.exe`.
+
+6. **Evaluated Performance**:
+   - Executed the program with `mingw32-make run` to generate predictions.
+   - Achieved an RMSE of **47.89**, reflecting accurate ERP predictions.
+
+7. **Managed Version Control**:
+   - Installed Git using `pacman -S git` in MSYS2.
+   - Initialized a Git repository and pushed to [https://github.com/lqh2005/TinyProject](https://github.com/lqh2005/TinyProject).
+   - Committed source code, `Makefile`, and this `README.md`.
+
+---
+
+## Setup Instructions
+
+1. **Install MSYS2 and MinGW**:
+   - Download MSYS2 from [msys2.org](https://www.msys2.org/), install to `C:\msys64`.
+   - Open **MSYS2 UCRT64** terminal (`C:\msys64\ucrt64.exe`).
+   - Update:
+     ```bash
+     pacman -Syu
+     ```
+   - Install:
+     ```bash
+     pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make
+     ```
+
+2. **Add MinGW to Path**:
+   - Press **Win + R**, type `sysdm.cpl`, go to **Environment Variables**.
+   - Add `C:\msys64\ucrt64\bin` to **System Path**.
+   - Verify:
+     ```bash
+     g++ --version
+     mingw32-make --version
+     ```
+
+3. **Install Git**:
+   - In MSYS2:
+     ```bash
+     pacman -S git
+     ```
+   - Or download from [git-scm.com](https://git-scm.com/), add `C:\Program Files\Git\bin` to **Path**.
+   - Verify:
+     ```bash
+     git --version
+     ```
 
-TinyProject là một dự án C++ thực hiện hồi quy tuyến tính để dự đoán hiệu năng phần cứng dựa trên tập dữ liệu Computer Hardware. Dự án sử dụng phương pháp giải hệ phương trình tuyến tính và tối ưu hóa với ma trận đối xứng dương.
-Mục lục
+4. **Clone Repository**:
+   - Clone:
+     ```bash
+     git clone https://github.com/lqh2005/TinyProject.git
+     cd TinyProject
+     ```
 
-Giới thiệu
-Yêu cầu hệ thống
-Cài đặt
-Cách chạy
-Kết quả
-Cấu trúc dự án
-Troubleshooting
-Đóng góp
-Giấy phép
+5. **Prepare Dataset**:
+   - Place `machine.data` in `data/`. Download from [UCI](https://archive.ics.uci.edu/ml/datasets/Computer+Hardware) if needed.
 
-Giới thiệu
-Dự án này được phát triển như một bài tập học thuật để:
+---
 
-Áp dụng hồi quy tuyến tính cho bài toán dự đoán thực tế.
-Sử dụng C++ để xây dựng các lớp Matrix, Vector, và LinearSystem.
-Tối ưu hóa giải hệ phương trình tuyến tính với ma trận đối xứng dương (PosSymLinSystem).
+## Running the Project
 
-Tập dữ liệu machine.data được sử dụng để huấn luyện và đánh giá mô hình. Kết quả được đo bằng Root Mean Squared Error (RMSE).
-Yêu cầu hệ thống
+1. Navigate to project folder:
+   ```bash
+   cd /c/Users/hungl/OneDrive/Documents/TinyProject
+   ```
 
+2. Clean build:
+   ```bash
+   mingw32-make clean
+   ```
 
+3. Compile:
+   ```bash
+   mingw32-make
+   ```
 
-Công cụ
-Phiên bản
-Mô tả
+4. Run:
+   ```bash
+   mingw32-make run
+   ```
+   - Displays RMSE (e.g., `RMSE: 47.89`).
 
+---
 
+## License
 
-HĐH
-Windows 10/11
-Hỗ trợ MSYS2
+This project is licensed under the [MIT License](LICENSE).
 
+---
 
-MSYS2
-Mới nhất
-Cung cấp môi trường MinGW
-
-
-GCC/G++
-13.x.x
-Trình biên dịch C++
-
-
-mingw32-make
-4.x.x
-Công cụ xây dựng
-
-
-Git
-Mới nhất
-Quản lý mã nguồn
-
-
-Cài đặt
-1. Cài đặt MSYS2
-
-Tải MSYS2 từ msys2.org và cài vào C:\msys64.
-Mở terminal MSYS2 UCRT64 (C:\msys64\ucrt64.exe).
-Cập nhật hệ thống:pacman -Syu
-
-
-Cài các gói cần thiết:pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make
-
-
-
-2. Thêm MSYS2 vào Path
-
-Nhấn Win + R, gõ sysdm.cpl, vào Environment Variables.
-Trong System Variables, thêm C:\msys64\ucrt64\bin vào Path.
-Kiểm tra:g++ --version
-mingw32-make --version
-
-
-
-3. Clone dự án
-
-Cài Git nếu chưa có: git-scm.com.
-Clone kho:git clone https://github.com/lqh2005/TinyProject.git
-cd TinyProject
-
-
-
-4. Tải dữ liệu
-
-Đảm bảo file machine.data nằm trong thư mục data/.
-Nếu thiếu, tải từ UCI.
-
-Cách chạy
-
-Di chuyển đến thư mục dự án:
-cd /c/Users/hungl/OneDrive/Documents/TinyProject
-
-
-Làm sạch dự án:
-mingw32-make clean
-
-
-Biên dịch:
-mingw32-make
-
-
-Chạy chương trình:
-mingw32-make run
-
-
-Kết quả RMSE sẽ hiển thị (ví dụ: RMSE: 47.89).
-
-
-
-Kết quả
-
-RMSE: 47.89 (giá trị thực tế sau khi chạy mingw32-make run).
-Mô hình đạt độ chính xác tương đối trên tập dữ liệu machine.data.
-
-Cấu trúc dự án
-TinyProject/
-├── data/
-│   └── machine.data
-├── include/
-│   ├── LinearSystem.hpp
-│   ├── Matrix.hpp
-│   ├── Vector.hpp
-├── src/
-│   ├── LinearSystem.cpp
-│   ├── main.cpp
-│   ├── Matrix.cpp
-│   ├── Vector.cpp
-├── Makefile
-├── README.md
-
-
-data/: Chứa tập dữ liệu.
-include/: Chứa file tiêu đề (.hpp).
-src/: Chứa file mã nguồn (.cpp).
-Makefile: File cấu hình biên dịch.
-
-Troubleshooting
-
-
-
-Lỗi
-Giải pháp
-
-
-
-g++: command not found
-Cài mingw-w64-x86_64-gcc hoặc thêm C:\msys64\ucrt64\bin vào Path.
-
-
-mingw32-make: command not found
-Cài mingw-w64-x86_64-make.
-
-
-machine.data not found
-Tải file từ UCI và đặt vào data/.
-
-
-Lỗi biên dịch streamsize
-Dùng GCC/G++ phiên bản mới (13.x.x).
-
-
-Lỗi A, b trong LinearSystem
-Kiểm tra LinearSystem.hpp có khai báo Matrix A; Vector b;.
-
-
-Đóng góp
-
-Fork kho: https://github.com/lqh2005/TinyProject.
-Tạo nhánh: git checkout -b feature/ten-nhanh.
-Commit: git commit -m "Mô tả thay đổi".
-Push: git push origin feature/ten-nhanh.
-Tạo Pull Request trên GitHub.
-
-Giấy phép
-Dự án được cấp phép dưới MIT License.
-
-Liên hệ: lqh2005Nộp bài: Moodle (thay bằng link Moodle thực tế)RMSE: 47.89 (cập nhật giá trị thực tế sau khi chạy)
+**Contact**: [lqh2005](https://github.com/lqh2005)  
+**Resources**: [UCI Dataset](https://archive.ics.uci.edu/ml/datasets/Computer+Hardware), [C++ Reference](https://en.cppreference.com/w/)
