@@ -1,21 +1,16 @@
 # TinyProject: Linear Regression in C++
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![C++](https://img.shields.io/badge/Language-C++-blue.svg)](https://isocpp.org/)
-[![Build Tool: MinGW](https://img.shields.io/badge/Build-MinGW-green.svg)](https://www.mingw-w64.org/)
-
 **TinyProject** is a C++ implementation of linear regression to predict hardware performance using the [Computer Hardware dataset](https://archive.ics.uci.edu/ml/datasets/Computer+Hardware). This `README.md` describes the steps taken to complete the project.
 
 ---
 
 ## Table of Contents
 
-- [Project Description](#project-description)
-- [Steps Taken to Complete the Project](#steps-taken-to-complete-the-project)
-- [Setup Instructions](#setup-instructions)
-- [Running the Project](#running-the-project)
-- [License](#license)
-
+- [TinyProject: Linear Regression in C++](#tinyproject-linear-regression-in-c)
+  - [Table of Contents](#table-of-contents)
+  - [Project Description](#project-description)
+  - [Steps Taken to Complete the Project](#steps-taken-to-complete-the-project)
+  - [Running the Project](#running-the-project)
 ---
 
 ## Project Description
@@ -66,51 +61,6 @@ To complete **TinyProject**, the following actions were performed:
 
 ---
 
-## Setup Instructions
-
-1. **Install MSYS2 and MinGW**:
-   - Download MSYS2 from [msys2.org](https://www.msys2.org/), install to `C:\msys64`.
-   - Open **MSYS2 UCRT64** terminal (`C:\msys64\ucrt64.exe`).
-   - Update:
-     ```bash
-     pacman -Syu
-     ```
-   - Install:
-     ```bash
-     pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make
-     ```
-
-2. **Add MinGW to Path**:
-   - Press **Win + R**, type `sysdm.cpl`, go to **Environment Variables**.
-   - Add `C:\msys64\ucrt64\bin` to **System Path**.
-   - Verify:
-     ```bash
-     g++ --version
-     mingw32-make --version
-     ```
-
-3. **Install Git**:
-   - In MSYS2:
-     ```bash
-     pacman -S git
-     ```
-   - Or download from [git-scm.com](https://git-scm.com/), add `C:\Program Files\Git\bin` to **Path**.
-   - Verify:
-     ```bash
-     git --version
-     ```
-
-4. **Clone Repository**:
-   - Clone:
-     ```bash
-     git clone https://github.com/lqh2005/TinyProject.git
-     cd TinyProject
-     ```
-
-5. **Prepare Dataset**:
-   - Place `machine.data` in `data/`. Download from [UCI](https://archive.ics.uci.edu/ml/datasets/Computer+Hardware) if needed.
-
----
 
 ## Running the Project
 
@@ -133,15 +83,6 @@ To complete **TinyProject**, the following actions were performed:
    ```bash
    mingw32-make run
    ```
-   - Displays RMSE (e.g., `RMSE: 47.89`).
+   - Displays RMSE 
 
 ---
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-**Contact**: [lqh2005](https://github.com/lqh2005)  
-**Resources**: [UCI Dataset](https://archive.ics.uci.edu/ml/datasets/Computer+Hardware), [C++ Reference](https://en.cppreference.com/w/)
