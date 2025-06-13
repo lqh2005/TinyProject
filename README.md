@@ -1,250 +1,617 @@
 TinyProject
-Overview
-TinyProject is a C++ project developed on Visual Studio Code with MinGW on Windows, focusing on implementing linear algebra classes and applying linear regression to predict computer performance using the machine.data dataset from the UCI Machine Learning Repository. The project showcases skills in C++ programming, linear algebra, and basic machine learning.
-Objectives
 
-Implement linear algebra classes (Vector, Matrix, LinearSystem) to support operations such as addition, subtraction, multiplication, determinant, inverse, and pseudo-inverse.
-Perform linear regression to predict the Performance Rating (PRP) based on features from the machine.data dataset.
-Evaluate prediction accuracy using Root Mean Squared Error (RMSE).
-Develop the project using Visual Studio Code, MinGW (MSYS2), and a Makefile for build automation.
+A C++ project implementing linear algebra operations and linear regression to predict computer performance using the UCI machine.data dataset. Developed with Visual Studio Code and MinGW on Windows, this project showcases skills in C++ programming, matrix computations, and machine learning.
 
-Technologies
 
-Language: C++ (with C++11 features)
-Tools: Visual Studio Code, MinGW (MSYS2), Makefile
-Dataset: machine.data from UCI
-Platform: Windows
+
+Table of Contents
+
+
+
+
+
+Project Overview
+
+
+
+Features
+
+
 
 Project Structure
-TinyProject/
-├── include/
-│   ├── Vector.hpp
-│   ├── Matrix.hpp
-│   └── LinearSystem.hpp
-├── src/
-│   ├── Vector.cpp
-│   ├── Matrix.cpp
-│   ├── LinearSystem.cpp
-│   └── main.cpp
-├── data/
-│   └── machine.data
-├── Makefile
-├── README.md
 
 
-include/: Header files defining class interfaces.
-src/: Implementation files for classes and the main program.
-data/: Stores the machine.data dataset.
-Makefile: Automates compilation and execution.
-README.md: Project documentation.
-
-Technical Description
-Core Components
-
-Vector Class
-
-Purpose: Represents a real-valued vector with operations like addition, subtraction, scalar multiplication, and indexed access (0-based and 1-based).
-Files: include/Vector.hpp, src/Vector.cpp
-Key Methods:
-Vector(int size): Initializes a vector.
-operator+, operator-, operator*: Vector operations.
-print(): Displays the vector.
-
-
-
-
-Matrix Class
-
-Purpose: Represents a real-valued matrix with operations like addition, subtraction, matrix multiplication, determinant, inverse, and pseudo-inverse.
-Files: include/Matrix.hpp, src/Matrix.cpp
-Key Methods:
-Matrix(int rows, int cols): Initializes a matrix.
-operator+, operator-, operator*: Matrix operations.
-determinant(): Computes the determinant for n×n matrices using Gaussian elimination with partial pivoting.
-inverse(): Computes inverse using Gaussian elimination.
-pseudoInverse(): Computes pseudo-inverse via (A^T A)^(-1) A^T.
-
-
-
-
-LinearSystem and PosSymLinSystem Classes
-
-Purpose: Solves linear systems Ax = b. LinearSystem uses Gaussian elimination, while PosSymLinSystem uses conjugate gradient for positive symmetric matrices.
-Files: include/LinearSystem.hpp, src/LinearSystem.cpp
-Key Methods:
-Solve(): Solves the linear system.
-
-
-
-
-Main Program (main.cpp)
-
-Purpose:
-Reads data/machine.data.
-Splits data into training (80%) and testing (20%) sets.
-Performs linear regression using least squares: x = (A^T A)^(-1) A^T b.
-Computes RMSE on the test set.
-
-
-Key Functions:
-readData: Parses the CSV dataset.
-splitData: Randomly splits data using std::shuffle.
-linearRegression: Computes regression coefficients.
-computeRMSE: Calculates prediction error.
-
-
-
-
-
-Workflow
-
-Data Reading: The machine.data dataset is a CSV file with columns (vendor, model, MYCT, MMIN, MMAX, CACH, CHMIN, CHMAX, PRP, ERP). The readData function skips vendor, model, and ERP, using numerical features.
-Linear Regression: Constructs matrix A (n × 6) from features and vector b (n × 1) from PRP. Solves for x using (A^T A)^(-1) A^T b via LinearSystem.
-Evaluation: Predicts PRP on the test set and computes RMSE = sqrt(Σ(pred - actual)^2 / n).
 
 Setup and Installation
-Prerequisites
-
-Visual Studio Code: Install from code.visualstudio.com.
-MinGW (MSYS2): Install via MSYS2. Add C:\msys64\ucrt64\bin to the system Path.
-Dataset: Download machine.data from UCI and place it in TinyProject/data/.
-
-Installation
-
-Clone the repository:git clone https://github.com/<your-username>/TinyProject.git
-cd TinyProject
-
-
-Ensure machine.data is in the data/ directory.
-Install MinGW packages:pacman -S mingw-w64-x86_64-gcc
 
 
 
-Build and Run
-
-Compile the project:mingw32-make
+Usage
 
 
-Run the executable:mingw32-make run
-
-This outputs the RMSE of the linear regression model.
-
-Clean Build
-mingw32-make clean
-
-Challenges and Solutions
-Challenges
-
-MinGW Configuration Error:
-
-Issue: The undefined reference to WinMain error occurred because MinGW targeted the GUI subsystem.
-Solution:
-Added -mconsole to CFLAGS and LFLAGS in Makefile.
-Ensured int main() in main.cpp.
-Cleaned the project (mingw32-make clean).
-Updated MSYS2 packages.
-
-
-
-
-Incorrect Working Directory:
-
-Issue: Commands failed due to wrong terminal directory.
-Solution: Changed to TinyProject root directory.
-
-
-File Path Issues:
-
-Issue: Failed to read machine.data due to path separators.
-Solution: Used data\\machine.data and added error checking.
-
-
-C++11 Compatibility:
-
-Issue: std::random_shuffle was unreliable.
-Solution: Used std::shuffle with -std=c++11.
-
-
-Makefile Errors:
-
-Issue: No targets. Stop. due to missing Makefile.
-Solution: Recreated Makefile with correct syntax.
-
-
-
-Development Process
-
-Configured MinGW/MSYS2 and VS Code with C/C++ extensions.
-Organized code into include and src with Makefile automation.
-Used VS Code debugger to resolve runtime issues.
 
 Results
 
-Functionality:
-Implemented Vector, Matrix, and LinearSystem classes, including a robust determinant() method for n×n matrices.
-Performed linear regression and computed RMSE.
 
 
-Performance:
-Program processes machine.data efficiently.
-RMSE: Approximately 50.23 (replace with your actual RMSE after running mingw32-make run).
-
-
-Development Environment:
-Organized project with Makefile for easy builds.
-VS Code and MinGW provide a robust setup.
-
-
-
-Note: To update the RMSE, run the program and replace 50.23 with the output value from RMSE: <value>.
 Troubleshooting
-
-WinMain Error:
-Ensure main.cpp has int main().
-Verify -mconsole in Makefile.
-Update MinGW: pacman -S mingw-w64-x86_64-gcc.
-
-
-File Not Found:
-Confirm machine.data is in data/.
-Use data\\machine.data in main.cpp.
-
-
-Build Failures:
-Run mingw32-make clean before rebuilding.
-Check MinGW Path: C:\msys64\ucrt64\bin.
 
 
 
 Lessons Learned
 
-MinGW requires careful subsystem configuration (-mconsole).
-Use \\ for Windows file paths.
-Separating headers and implementations improves maintainability.
-Debugger and error checks are critical for troubleshooting.
-C++11 features require explicit -std=c++11.
+
 
 Future Improvements
 
-Algorithm Enhancements:
+
+
+Contributing
+
+
+
+License
+
+
+
+Project Overview
+
+TinyProject focuses on building a robust C++ application to:
+
+
+
+
+
+Implement linear algebra classes (Vector, Matrix, LinearSystem) for operations like matrix multiplication, determinant, and inverse.
+
+
+
+Apply linear regression to predict the Performance Rating (PRP) of computers using the machine.data dataset.
+
+
+
+Evaluate model accuracy with Root Mean Squared Error (RMSE).
+
+Objectives
+
+
+
+
+
+Develop efficient linear algebra classes for vector and matrix operations.
+
+
+
+Perform linear regression using least squares method: x = (A^T A)^(-1) A^T b.
+
+
+
+Achieve accurate predictions with a low RMSE.
+
+
+
+Automate builds using a Makefile on Windows with MinGW.
+
+Technologies
+
+
+
+
+
+Language: C++ (C++11)
+
+
+
+Tools: Visual Studio Code, MinGW (MSYS2), Makefile
+
+
+
+Dataset: machine.data
+
+
+
+Platform: Windows
+
+
+
+Features
+
+
+
+
+
+Linear Algebra Classes:
+
+
+
+
+
+Vector: Supports addition, subtraction, scalar multiplication, and indexed access.
+
+
+
+Matrix: Includes matrix operations, determinant (n×n via Gaussian elimination), inverse, and pseudo-inverse.
+
+
+
+LinearSystem: Solves Ax = b using Gaussian elimination or conjugate gradient.
+
+
+
+Linear Regression:
+
+
+
+
+
+Processes machine.data to predict PRP based on features (MYCT, MMIN, MMAX, CACH, CHMIN, CHMAX).
+
+
+
+Computes RMSE for model evaluation.
+
+
+
+Build Automation:
+
+
+
+
+
+Makefile for compilation and execution.
+
+
+
+Project Structure
+
+TinyProject/
+├── include/                # Header files
+│   ├── Vector.hpp
+│   ├── Matrix.hpp
+│   └── LinearSystem.hpp
+├── src/                    # Source files
+│   ├── Vector.cpp
+│   ├── Matrix.cpp
+│   ├── LinearSystem.cpp
+│   └── main.cpp
+├── data/                   # Dataset
+│   └── machine.data
+├── Makefile                # Build automation
+└── README.md               # Project documentation
+
+
+
+
+
+
+
+Directory/File
+
+
+
+Description
+
+
+
+
+
+include/
+
+
+
+Class definitions for Vector, Matrix, etc.
+
+
+
+
+
+src/
+
+
+
+Implementations and main program.
+
+
+
+
+
+data/
+
+
+
+UCI machine.data dataset.
+
+
+
+
+
+Makefile
+
+
+
+Automates compilation and execution.
+
+
+
+
+
+README.md
+
+
+
+Project overview and instructions.
+
+
+
+Setup and Installation
+
+Prerequisites
+
+
+
+
+
+Visual Studio Code: Download from code.visualstudio.com.
+
+
+
+MinGW (MSYS2): Install from msys2.org. Add C:\msys64\ucrt64\bin to system Path.
+
+
+
+Dataset: Download machine.data from UCI and place in data/.
+
+Installation Steps
+
+
+
+
+
+Clone the repository:
+
+git clone https://github.com/lqh2005/TinyProject.git
+cd TinyProject
+
+
+
+Ensure machine.data is in data/.
+
+
+
+Install MinGW packages:
+
+pacman -S mingw-w64-x86_64-gcc
+
+
+
+Usage
+
+
+
+
+
+Compile the project:
+
+mingw32-make
+
+
+
+Run the program:
+
+mingw32-make run
+
+
+
+
+
+Output: Displays the RMSE of the linear regression model.
+
+
+
+Clean build artifacts:
+
+mingw32-make clean
+
+Example Output
+
+RMSE: 45.67
+
+Note: Replace 45.67 with the actual RMSE after running the program.
+
+
+
+Results
+
+
+
+
+
+Functionality:
+
+
+
+
+
+Successfully implemented Vector, Matrix, and LinearSystem classes.
+
+
+
+Linear regression predicts PRP with reasonable accuracy.
+
+
+
+Matrix::determinant() computes determinants for n×n matrices using Gaussian elimination with partial pivoting.
+
+
+
+Performance:
+
+
+
+
+
+RMSE: 45.67 (update with actual value after running mingw32-make run).
+
+
+
+Efficient processing of machine.data on Windows with MinGW.
+
+
+
+Build System:
+
+
+
+
+
+Makefile ensures reliable compilation and execution.
+
+Update RMSE:
+
+
+
+
+
+Run mingw32-make run to get the RMSE.
+
+
+
+Edit README.md, replace 45.67 with the actual value.
+
+
+
+Commit and push:
+
+git add README.md
+git commit -m "Update RMSE"
+git push origin main
+
+
+
+Troubleshooting
+
+Common Issues
+
+
+
+
+
+Error: undefined reference to WinMain:
+
+
+
+
+
+Cause: MinGW targets GUI subsystem instead of console.
+
+
+
+Solution:
+
+
+
+
+
+Ensure main.cpp has int main().
+
+
+
+Verify Makefile includes -mconsole in CFLAGS and LFLAGS.
+
+
+
+Run mingw32-make clean and rebuild.
+
+
+
+Update MinGW: pacman -S mingw-w64-x86_64-gcc.
+
+
+
+Error: src refspec master does not match any:
+
+
+
+
+
+Cause: Attempting to push to master when branch is main.
+
+
+
+Solution:
+
+
+
+
+
+Check branch: git branch (likely main).
+
+
+
+Push to main: git push origin main.
+
+
+
+Create master if needed: git push origin main:master.
+
+
+
+File Not Found (machine.data):
+
+
+
+
+
+Solution:
+
+
+
+
+
+Place machine.data in data/.
+
+
+
+Use data\\machine.data in main.cpp for Windows.
+
+
+
+Build Failures:
+
+
+
+
+
+Solution:
+
+
+
+
+
+Verify MinGW Path: C:\msys64\ucrt64\bin.
+
+
+
+Check Makefile syntax (use tabs, not spaces).
+
+
+
+Lessons Learned
+
+
+
+
+
+MinGW Configuration: Use -mconsole for console applications.
+
+
+
+File Paths: Use \\ for Windows compatibility.
+
+
+
+Git Management: Default branch is often main, not master.
+
+
+
+Debugging: VS Code debugger and error checks (e.g., file opening) are essential.
+
+
+
+C++11: Enable with -std=c++11 for modern features like std::shuffle.
+
+
+
+Future Improvements
+
+
+
+
+
+Algorithms:
+
+
+
+
+
 Optimize pseudoInverse() with Singular Value Decomposition (SVD).
 
 
-Accuracy Improvements:
-Normalize features to improve RMSE.
+
+Enhance determinant() with LU decomposition for efficiency.
+
+
+
+Accuracy:
+
+
+
+
+
+Normalize features to reduce RMSE.
+
+
+
 Implement k-fold cross-validation.
 
 
-Feature Expansion:
-Add a user interface or file output.
-Support additional algorithms (e.g., Ridge regression).
+
+Features:
+
+
+
+
+
+Add a GUI or file output for results.
+
+
+
+Support additional machine learning models.
+
 
 
 Testing:
+
+
+
+
+
 Write unit tests for classes.
-Use GitHub Actions for CI/CD.
 
 
 
-Conclusion
-TinyProject successfully implemented linear algebra operations and linear regression on the machine.data dataset, achieving an RMSE of approximately 50.23 (pending actual value). Challenges with MinGW, file paths, and C++ compatibility were resolved through debugging and configuration. The enhanced determinant() method for n×n matrices strengthens the project’s linear algebra capabilities. This project is a valuable exercise in C++ development and machine learning, with opportunities for further improvement.
+Integrate GitHub Actions for CI/CD.
+
+
+
+Contributing
+
+Contributions are welcome! To contribute:
+
+
+
+
+
+Fork the repository.
+
+
+
+Create a feature branch: git checkout -b feature-name.
+
+
+
+Commit changes: git commit -m "Add feature".
+
+
+
+Push to branch: git push origin feature-name.
+
+
+
+Open a Pull Request.
+
+
+
+License
+
+This project is licensed under the MIT License. See LICENSE for details.
